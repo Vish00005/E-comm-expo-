@@ -34,7 +34,7 @@ app.get("/admin", (req, res) => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(_dirname, "./admin/dist")));
   app.get("/", (req, res) => {
-    res.sendFile(path.join(_dirname, "../admin", "dist", "index.html"));
+    res.redirect("https://e-comm-expo.vercel.app/")
   });
 }
 
