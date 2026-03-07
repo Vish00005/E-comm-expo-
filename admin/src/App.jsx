@@ -1,11 +1,12 @@
 
 import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react'
+import { Link } from 'react-router-dom'
 
 function App() {
   return (
     <>
-    <h1>Welcome</h1>
-      <header>
+    <div>
+      <h1 style={{display:"inline-block"}}>Welcome</h1>
         <Show when="signed-out">
           <SignInButton mode='modal'/>
           <SignUpButton mode='modal'/>
@@ -13,7 +14,8 @@ function App() {
         <Show when="signed-in">
           <UserButton />
         </Show>
-      </header>
+      </div>
+      <Link to="/home">Home</Link>
     </>
   )
 }

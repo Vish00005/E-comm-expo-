@@ -37,7 +37,12 @@ if (process.env.NODE_ENV === "production") {
     res.redirect("https://e-comm-expo.vercel.app/")
   });
 }
-
+app.get("/", (req, res) => {
+  res.send("development")
+});
+app.get("/back", (req, res) => {
+  res.send("Server")
+});
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
