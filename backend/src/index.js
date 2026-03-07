@@ -6,6 +6,7 @@ const { connectDB } = require("./config/db");
 const { clerkMiddleware, requireAuth, getAuth } = require("@clerk/express");
 const { serve } = require("inngest/express");
 const { inngest, functions } = require("./config/ingest");
+const adminRoutes = require("./routes/admin");
 
 const port = process.env.PORT;
 const _dirname = path.resolve();
@@ -25,11 +26,7 @@ app.listen( port , async () => {
   await connectDB();
 });
 
-app.get("/admin", (req, res) => {
-  res
-    .status(200)
-    .json({ message: "Welcome to the backend of the ecommerce application" });
-});
+app.use("/api/admin",adminRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const backurl=process.env.BACKEND_URL;
@@ -38,12 +35,14 @@ if (process.env.NODE_ENV === "production") {
     res.redirect("https://e-comm-expo.vercel.app/")
   });
 }
-app.get("/", (req, res) => {
-  res.send("development")
-});
-app.get("/back", (req, res) => {
-  res.send("Deployed Server")
-});
+if(process.env.NODE_ENV === ""){
+  app.get("/", (req, res) => {
+    res.redirect("http://localhost:5173/")
+  });
+  // app.get("/back", (req, res) => {
+  //   res.send("Deployed Server")
+  // });
+}
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
