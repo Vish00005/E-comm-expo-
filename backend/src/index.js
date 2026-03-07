@@ -32,6 +32,7 @@ app.get("/admin", (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
+  const backurl=process.env.BACKEND_URL;
   app.use(express.static(path.join(_dirname, "./admin/dist")));
   app.get("/", (req, res) => {
     res.redirect("https://e-comm-expo.vercel.app/")
@@ -41,7 +42,7 @@ app.get("/", (req, res) => {
   res.send("development")
 });
 app.get("/back", (req, res) => {
-  res.send("Server")
+  res.send("Deployed Server")
 });
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
