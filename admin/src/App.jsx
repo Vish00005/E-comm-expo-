@@ -21,19 +21,22 @@ function App() {
       console.log("Photo:", loggedInUser.photoURL);
       console.log("UID:", loggedInUser.uid);
 
-      const res = await axios.post("http://localhost:3000/api/auth/google", {
-        name: loggedInUser.displayName,
-        email: loggedInUser.email,
-        photo: loggedInUser.photoURL,
-        uid: loggedInUser.uid,
-      });
+      const res = await axios.post(
+        "https://e-comm-expo.vercel.app/api/auth/google",
+        {
+          name: loggedInUser.displayName,
+          email: loggedInUser.email,
+          photo: loggedInUser.photoURL,
+          uid: loggedInUser.uid,
+        },
+      );
 
       console.log("Backend response:", res.data);
 
       if (res.data.role === "admin") {
-        navigate("/admin");
+        navigate("https://e-comm-expo.vercel.app/admin");
       } else {
-        navigate("/user");
+        navigate("https://e-comm-expo.vercel.app/user");
       }
     } catch (error) {
       console.log(error);
