@@ -1,48 +1,58 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const path = require("path");
-const { connectDB } = require("./config/db");
-const { clerkMiddleware, requireAuth, getAuth } = require("@clerk/express");
-const { serve } = require("inngest/express");
-const { inngest, functions } = require("./config/ingest");
-const adminRoutes = require("./routes/admin");
+const mongoose = require("mongoose");
 
-const port = process.env.PORT;
-const _dirname = path.resolve();
+app.listen(3055, () => {
+  console.log("Server is running on port http://localhost:3055");
+});
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
-app.use(express.json());
-app.use(clerkMiddleware());
+const authRoutes = require("./routes/authRoutes");
+
 app.use(
-  "/api/inngest",
-  serve({
-    client: inngest,
-    functions,
-  })
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }),
+);
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  session({
+    secret: "hellooo1234567890",
+    resave: false,
+    saveUninitialized: true,
+    cookie: function (req) {
+      let match = req.url.match(/^\/([^/]+)/);
+      return {
+        path: match ? "/" + match[1] : "/",
+        httpOnly: true,
+        secure: req.secure || false,
+        maxAge: 60000,
+      };
+    },
+  }),
 );
 
-app.listen( port , async () => {
-  console.log(`Server is running on http://localhost:${port}`);
-  await connectDB();
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.DB_URL);
+
+    console.log(`✅ MongoDB Connected`);
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
+};
+
+connectDB();
+
+app.get("/", (req, res) => {
+  res.redirect("http://localhost:5173/");
 });
 
-app.use("/api/admin",adminRoutes);
-
-if (process.env.NODE_ENV === "production") {
-  const backurl=process.env.BACKEND_URL;
-  app.use(express.static(path.join(_dirname, "./admin/dist")));
-  app.get("/", (req, res) => {
-    res.redirect("https://e-comm-expo.vercel.app/")
-  });
-}
-if(process.env.NODE_ENV === ""){
-  app.get("/", (req, res) => {
-    res.redirect("http://localhost:5173/")
-  });
-  // app.get("/back", (req, res) => {
-  //   res.send("Deployed Server")
-  // });
-}
-app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
+app.use("/api/auth", authRoutes);
