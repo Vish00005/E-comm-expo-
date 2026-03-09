@@ -16,7 +16,7 @@ const session = require("express-session");
 
 app.use(
   cors({
-    origin: "https://e-comm-expo.vercel.app",
+    origin: ["http://localhost:5173", "https://e-comm-expo.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
@@ -53,9 +53,14 @@ const connectDB = async () => {
 
 connectDB();
 
-app.get("/", (req, res) => {
-  res.redirect("https://e-comm-expo.vercel.app");
-});
+if (process.env.NODE_ENV === "production") {
+  app.get("/", (req, res) => {
+    res.redirect("https://e-comm-expo.vercel.app");
+  });
+}
 
+app.get("/", (req, res) => {
+  res.redirect("http://localhost:5173/");
+});
 app.use("/api/auth", authRoutes);
 app.use("/admin", adminRoutes);
