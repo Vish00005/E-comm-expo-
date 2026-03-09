@@ -6,10 +6,8 @@ const User = require("../models/user"); // import model
 router.post("/google", async (req, res) => {
   try {
     const { name, email, photo, uid } = req.body;
-
     // check if user already exists
     let user = await User.findOne({ email });
-
     if (!user) {
       user = new User({
         name,
@@ -17,8 +15,10 @@ router.post("/google", async (req, res) => {
         photo,
         googleId: uid,
       });
-
       await user.save();
+    }
+    if (user.email === process.env.ADMIN_EMAIL) {
+      res.redirect("https://e-comm-ufx2.onrender.com/admin/dashboard");
     }
 
     res.status(200).json({

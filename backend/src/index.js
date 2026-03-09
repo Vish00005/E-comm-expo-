@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/admin");
 
 const PORT = process.env.PORT || 3000;
 
@@ -11,8 +13,6 @@ app.listen(PORT, () => {
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-
-const authRoutes = require("./routes/authRoutes");
 
 app.use(
   cors({
@@ -58,3 +58,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/admin", adminRoutes);
