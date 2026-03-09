@@ -34,9 +34,9 @@ function App() {
       console.log("Backend response:", res.data);
 
       if (res.data.role === "admin") {
-        navigate("https://e-comm-expo.vercel.app/admin");
+        navigate("/admin");
       } else {
-        navigate("https://e-comm-expo.vercel.app/user");
+        navigate("/user");
       }
     } catch (error) {
       console.log(error);
