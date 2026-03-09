@@ -22,7 +22,7 @@ function App() {
       console.log("UID:", loggedInUser.uid);
 
       const res = await axios.post(
-        "https://e-comm-expo.vercel.app/api/auth/google",
+        "https://e-comm-ufx2.onrender.com/api/auth/google",
         {
           name: loggedInUser.displayName,
           email: loggedInUser.email,
