@@ -20,7 +20,7 @@ function App() {
       console.log("Photo:", loggedInUser.photoURL);
       console.log("UID:", loggedInUser.uid);
 
-      await axios.post("http://localhost:3055/api/auth/google", {
+      await axios.post("https://e-comm-ufx2.onrender.com/api/auth/google", {
         name: loggedInUser.displayName,
         email: loggedInUser.email,
         photo: loggedInUser.photoURL,

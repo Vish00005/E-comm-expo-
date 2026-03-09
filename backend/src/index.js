@@ -52,7 +52,7 @@ const connectDB = async () => {
 connectDB();
 
 app.get("/", (req, res) => {
-  res.redirect("http://localhost:5173/");
+  res.redirect("e-comm-expo.vercel.app");
 });
 
 app.use("/api/auth", authRoutes);
