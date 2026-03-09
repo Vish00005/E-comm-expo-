@@ -16,7 +16,7 @@ const authRoutes = require("./routes/authRoutes");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://e-comm-expo.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
@@ -54,7 +54,7 @@ const connectDB = async () => {
 connectDB();
 
 app.get("/", (req, res) => {
-  res.redirect("e-comm-expo.vercel.app");
+  res.redirect("https://e-comm-expo.vercel.app");
 });
 
 app.use("/api/auth", authRoutes);
