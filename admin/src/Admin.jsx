@@ -6,7 +6,7 @@ function Admin() {
   const [user, setUser] = useState(null);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/admin/dashboard", {
+      .get("https://e-comm-ufx2.onrender.com/admin/dashboard", {
         withCredentials: true,
       })
       .then((res) => {
