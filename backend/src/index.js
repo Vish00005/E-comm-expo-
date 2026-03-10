@@ -23,19 +23,17 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+app.set("trust proxy", 1);
 app.use(
   session({
     secret: "hellooo1234567890",
     resave: false,
-    saveUninitialized: true,
-    cookie: function (req) {
-      let match = req.url.match(/^\/([^/]+)/);
-      return {
-        path: match ? "/" + match[1] : "/",
-        httpOnly: true,
-        secure: req.secure || false,
-        maxAge: 60000,
-      };
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1000 * 60 * 60 * 24,
     },
   }),
 );

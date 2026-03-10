@@ -11,11 +11,14 @@ function Admin() {
       })
       .then((res) => {
         setUser(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  console.log(res.data);
 
   return (
     <>
