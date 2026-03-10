@@ -1,9 +1,9 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function Admin() {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     axios
       .get("https://e-comm-ufx2.onrender.com/admin/dashboard", {
@@ -18,12 +18,8 @@ function Admin() {
       });
   }, []);
 
-  console.log(res.data);
-
   return (
-    <>
-      <div>{user ? <h1>Welcome {user.name}</h1> : <h1>Please login</h1>}</div>
-    </>
+    <div>{user ? <h1>Welcome {user.name}</h1> : <h1>Please login</h1>}</div>
   );
 }
 
