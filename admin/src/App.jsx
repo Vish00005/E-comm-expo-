@@ -36,7 +36,7 @@ function App() {
       if (res.data.role === "admin") {
         navigate("/admin");
       } else {
-        navigate("/user");
+        navigate("/userPage");
       }
     } catch (error) {
       console.log(error);

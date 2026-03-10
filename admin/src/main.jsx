@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/home" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/userPage" element={<User />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
