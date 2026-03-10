@@ -29,6 +29,7 @@ function App() {
           photo: loggedInUser.photoURL,
           uid: loggedInUser.uid,
         },
+        { withCredentials: true }
       );
 
       console.log("Backend response:", res.data);

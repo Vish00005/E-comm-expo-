@@ -25,10 +25,17 @@ router.post("/google", async (req, res) => {
       email: user.email,
     };
 
-    if (user.email === process.env.ADMIN_EMAIL) {
-      return res.json({ role: "admin" });
-    }
-    return res.json({ role: "user" });
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+        return res.status(500).json({ message: "Session save error" });
+      }
+
+      if (user.email === process.env.ADMIN_EMAIL) {
+        return res.json({ role: "admin" });
+      }
+      return res.json({ role: "user" });
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
