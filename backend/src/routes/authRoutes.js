@@ -19,10 +19,15 @@ router.post("/google", async (req, res) => {
       await user.save();
     }
 
+    req.session.user = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    };
+
     if (user.email === process.env.ADMIN_EMAIL) {
       return res.json({ role: "admin" });
     }
-
     return res.json({ role: "user" });
   } catch (error) {
     console.error(error);

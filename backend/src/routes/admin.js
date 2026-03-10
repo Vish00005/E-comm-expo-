@@ -3,7 +3,11 @@ const { isAuth, adminOnly } = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/dashboard", (req, res) => {
-  res.send("Admin Router");
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+
+  res.json(req.session.user);
 });
 
 module.exports = router;
