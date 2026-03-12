@@ -18,7 +18,7 @@ router.get("/addresses", getAdresses);
 router.put("/addresses/:id", updateAddress);
 router.delete("/addresses/:id", deleteAddress);
 
-router.post("/wishlist", addWishlist);
 router.get("/wishlist", getWishlist);
+router.post("/wishlist/:id", addWishlist);
 router.delete("/wishlist/:id", deleteWishlist);
 module.exports = router;
