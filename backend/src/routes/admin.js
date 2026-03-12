@@ -12,13 +12,7 @@ const {
   getStats,
 } = require("../controller/admin.controller");
 
-router.get("/dashboard", isAuth, (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ message: "Not logged in" });
-  }
-
-  res.json(req.session.user);
-});
+router.get("/dashboard", isAuth, (req, res) => {});
 
 router.use(isAuth, adminOnly);
 

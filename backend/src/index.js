@@ -14,6 +14,7 @@ app.listen(PORT, () => {
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const { isAuth } = require("./middleware/auth");
 
 app.use(
   cors({
@@ -65,5 +66,11 @@ app.get("/", (req, res) => {
   res.redirect("http://localhost:5173/");
 });
 app.use("/api/auth", authRoutes);
+app.use("/check", isAuth, (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+  res.json(req.session.user);
+});
 app.use("/admin", adminRoutes);
 app.use("/user", userRoutes);

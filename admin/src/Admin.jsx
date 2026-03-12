@@ -6,7 +6,7 @@ function Admin() {
 
   useEffect(() => {
     axios
-      .get("https://e-comm-ufx2.onrender.com/admin/dashboard", {
+      .get("https://e-comm-ufx2.onrender.com/check", {
         withCredentials: true,
       })
       .then((res) => {
