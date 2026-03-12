@@ -7,7 +7,7 @@ router.post("/google", async (req, res) => {
   try {
     const { name, email, photo, uid } = req.body;
 
-    let user = await User.findOne({ email });
+    let user = await Users.findOne({ email });
 
     if (!user) {
       user = new User({
