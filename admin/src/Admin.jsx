@@ -23,7 +23,8 @@ function Admin() {
       {user ? (
         <div>
           <h1>Welcome Admin {user.name}</h1>
-          <p>{user}</p>
+          <p>{user.email}</p>
+          <p>{user.id}</p>
         </div>
       ) : (
         <h1>Please login</h1>
