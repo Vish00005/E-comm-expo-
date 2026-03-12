@@ -29,6 +29,7 @@ function Admin() {
       ) : (
         <h1>Please login</h1>
       )}
+      <p>{JSON.stringify(user)}</p>
     </div>
   );
 }
