@@ -12,15 +12,16 @@ const {
   getStats,
 } = require("../controller/admin.controller");
 
-router.use(isAuth, adminOnly);
-
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", isAuth, (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ message: "Not logged in" });
   }
 
   res.json(req.session.user);
 });
+
+router.use(isAuth, adminOnly);
+
 router.post("/products", upload.array("images", 3), createProduct);
 router.get("/products", allProduct);
 router.put("/products/:id", upload.array("images", 3), updateProduct);
