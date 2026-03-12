@@ -1,14 +1,15 @@
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/admin");
+const userRoutes = require("./routes/userRoutes");
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -56,9 +57,13 @@ if (process.env.NODE_ENV === "production") {
     res.redirect("https://e-comm-expo.vercel.app");
   });
 }
-
+app.get("/hello", (req, res) => {
+  console.log("hello");
+  res.send(req.session.user);
+});
 app.get("/", (req, res) => {
   res.redirect("http://localhost:5173/");
 });
 app.use("/api/auth", authRoutes);
 app.use("/admin", adminRoutes);
+app.use("/user", userRoutes);
