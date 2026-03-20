@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/admin");
 const userRoutes = require("./routes/userRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const productRoutes = require("./routes/productRoutes");
+const reviewRoutes = require("./routes/reviewRoutes.js");
 
 const PORT = process.env.PORT || 3000;
 
@@ -58,9 +61,8 @@ if (process.env.NODE_ENV === "production") {
     res.redirect("https://e-comm-expo.vercel.app");
   });
 }
-app.get("/hello", (req, res) => {
-  console.log("hello");
-  res.send(req.session.user);
+app.get("/hello1234", (req, res) => {
+  res.json({ name: "Vishal Khimsuriya", age: 22 });
 });
 app.get("/", (req, res) => {
   res.redirect("http://localhost:5173/");
@@ -74,3 +76,6 @@ app.use("/check", isAuth, (req, res) => {
 });
 app.use("/admin", adminRoutes);
 app.use("/user", userRoutes);
+app.use("/order", orderRoutes);
+app.use("/product", productRoutes);
+app.use("/review", reviewRoutes);
