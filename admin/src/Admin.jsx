@@ -13,6 +13,7 @@ function Admin() {
       .then((res) => {
         if (res.data.role !== "admin") {
           console.log("Not an admin, redirecting...");
+          console.log(res.data);
           navigate("/");
           return;
         }
