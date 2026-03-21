@@ -10,6 +10,12 @@ function Admin() {
         withCredentials: true,
       })
       .then((res) => {
+        if (res.data.id === undefined) {
+          console.log(res.data);
+          console.log("Unauthorized");
+          navigate("/");
+          return;
+        }
         setUser(res.data);
         console.log(res.data);
       })
@@ -18,6 +24,23 @@ function Admin() {
       });
   }, []);
 
+  const logout = () => {
+    axios
+      .post(
+        "https://e-comm-ufx2.onrender.com/logout",
+        {},
+        { withCredentials: true },
+      )
+      .then((res) => {
+        console.log(res.data);
+        setUser(null);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       {user ? (
@@ -25,6 +48,7 @@ function Admin() {
           <h1>Welcome User {user.name}</h1>
           <p>{user.email}</p>
           <p>{user.id}</p>
+          <button onClick={logout}>Logout</button>
         </div>
       ) : (
         <h1>Please login</h1>
