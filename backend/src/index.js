@@ -8,6 +8,7 @@ const userRoutes = require("./routes/userRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const productRoutes = require("./routes/productRoutes");
 const reviewRoutes = require("./routes/reviewRoutes.js");
+const cartRoutes = require("./routes/cartRoutes.js");
 
 const PORT = process.env.PORT || 3000;
 
@@ -79,3 +80,4 @@ app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
 app.use("/product", productRoutes);
 app.use("/review", reviewRoutes);
+app.use("/cart", cartRoutes);
