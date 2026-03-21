@@ -11,6 +11,11 @@ function Admin() {
         withCredentials: true,
       })
       .then((res) => {
+        if (res.data.role !== "admin") {
+          console.log("Not an admin, redirecting...");
+          navigate("/");
+          return;
+        }
         setUser(res.data);
         console.log(res.data);
       })

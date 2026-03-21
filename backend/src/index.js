@@ -66,7 +66,7 @@ app.get("/", (req, res) => {
   res.redirect("http://localhost:5173/");
 });
 app.use("/api/auth", authRoutes);
-app.use("/check", isAuth, adminOnly, (req, res) => {
+app.use("/check", isAuth, (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ message: "Not logged in" });
   }
