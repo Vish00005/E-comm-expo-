@@ -11,7 +11,7 @@ function Admin() {
         withCredentials: true,
       })
       .then((res) => {
-        if (res.data.id !== "69af1601ebd9b25cd92ad20f") {
+        if (res.data.id !== import.meta.env.VITE_ADMIN_ID) {
           console.log(res.data);
           console.log("Not an admin, redirecting...");
           navigate("/");
