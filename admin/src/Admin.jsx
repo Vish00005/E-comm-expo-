@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [user, setUser] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("https://e-comm-ufx2.onrender.com/check", {
@@ -18,6 +19,23 @@ function Admin() {
       });
   }, []);
 
+  const logout = () => {
+    axios
+      .post(
+        "https://e-comm-ufx2.onrender.com/logout",
+        {},
+        { withCredentials: true },
+      )
+      .then((res) => {
+        console.log(res.data);
+        setUser(null);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       {user ? (
@@ -25,6 +43,7 @@ function Admin() {
           <h1>Welcome Admin {user.name}</h1>
           <p>{user.email}</p>
           <p>{user.id}</p>
+          <button onClick={logout}>Logout</button>
         </div>
       ) : (
         <h1>Please login</h1>
