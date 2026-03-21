@@ -12,8 +12,8 @@ function Admin() {
       })
       .then((res) => {
         if (res.data.id !== process.env.ADMIN_ID) {
-          console.log("Not an admin, redirecting...");
           console.log(res.data);
+          console.log("Not an admin, redirecting...");
           navigate("/");
           return;
         }
