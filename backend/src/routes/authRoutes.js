@@ -10,7 +10,7 @@ router.post("/google", async (req, res) => {
     let user = await Users.findOne({ email });
 
     if (!user) {
-      user = new User({
+      user = new Users({
         name,
         email,
         photo,
