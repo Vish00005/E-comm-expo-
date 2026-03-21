@@ -29,7 +29,7 @@ function App() {
           photo: loggedInUser.photoURL,
           uid: loggedInUser.uid,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       console.log("Backend response:", res.data);
@@ -46,21 +46,20 @@ function App() {
 
   return (
     <div style={{ padding: "40px" }}>
-      <h1>Google Login</h1>
+      <h1 className="text-5xl mb-3">Google Login</h1>
 
       {!user ? (
-        <button onClick={login}>Sign in with Google</button>
+        <button
+          onClick={login}
+          className="bg-blue-500 text-white px-4 py-2 rounded-full"
+        >
+          Sign in with Google
+        </button>
       ) : (
         <div style={{ marginTop: "20px" }}>
           <h2>Welcome, {user.displayName}</h2>
-          {user.photoURL && (
-            <img
-              src={user.photoURL}
-              alt="User Profile"
-              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-            />
-          )}
           <p>Email: {user.email}</p>
+          <p>Wait a Sec... Loading</p>
         </div>
       )}
     </div>
