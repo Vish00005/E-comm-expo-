@@ -15,9 +15,10 @@ function Admin() {
         console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Access Denied (Not an admin)", err);
+        navigate("/");
       });
-  }, []);
+  }, [navigate]);
 
   const logout = () => {
     axios
